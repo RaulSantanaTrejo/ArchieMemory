@@ -50,10 +50,39 @@ def get_memory():
 
         if memory_id:
             memory = Memory.query.filter_by(id=memory_id).first()
+            if memory is not None:
+                return message.format(id=memory.id, content=memory.memory_content, category=memory.memory_category)
+
+        if memory_content:
+            memory = Memory.query.filter_by(memory_content=memory_content).first()
+            if memory is not None:
+                return message.format(id=memory.id, content=memory.memory_content, category=memory.memory_category)
+
+        return "Couldn't find memory matching those parameters"
+
+
+    except Exception as e:
+        error_msg = 'Error while retrieving memory: ' + str(e)
+        print(error_msg)
+        return error_msg
+
+@app.route('/forget',methods=['GET'])
+def forget():
+    try:
+        memory_id = request.args.get('id')
+        memory_content = request.args.get('content')
+        message = "Deleted memory with id: '{id}', content: '{content}' and category: '{category}'"
+
+        if memory_id:
+            memory = Memory.query.filter_by(id=memory_id).first()
+            db.session.delete(memory)
+            db.session.commit()
             return message.format(id=memory.id, content=memory.memory_content, category=memory.memory_category)
 
         if memory_content:
             memory = Memory.query.filter_by(memory_content=memory_content).first()
+            db.session.delete(memory)
+            db.session.commit()
             return message.format(id=memory.id, content=memory.memory_content, category=memory.memory_category)
 
         return "Couldn't find memory matching those parameters"
