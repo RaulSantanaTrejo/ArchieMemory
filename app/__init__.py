@@ -4,16 +4,14 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 
 app = Flask(__name__)
-try:
-    app.config.from_object(os.environ['APP_SETTINGS']) #loads the correct config
-except:
-    app.config.from_object('config.DevelopmentConfig')
+
+app.config.from_object(os.environ['APP_SETTINGS']) #loads the correct config
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
-from models import *
+from app.models import *
 
 @app.route('/')
 def hello():
