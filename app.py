@@ -1,6 +1,19 @@
+import os
 from flask import Flask
-app = Flask(__name__)
+from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
 
+app = Flask(__name__)
+try:
+    app.config.from_object(os.environ['APP_SETTINGS']) #loads the correct config
+except:
+    app.config.from_object('config.DevelopmentConfig')
+
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+db = SQLAlchemy(app)
+migrate = Migrate(app, db)
+
+from models import *
 
 @app.route('/')
 def hello():
