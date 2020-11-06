@@ -7,10 +7,8 @@ class Config(object):
     TESTING = False
     CSRF_ENABLED = True
     SECRET_KEY = 'this-really-needs-to-be-changed'
-    pg_user = "postgres"
-    pg_pwd = "postgres"
-    pg_port = "5432"
-    SQLALCHEMY_DATABASE_URI = "postgresql://{username}:{password}@localhost:{port}/archiememory_dev".format(username=pg_user, password=pg_pwd, port=pg_port)#is different in production
+    pg_pwd = "example"
+    SQLALCHEMY_DATABASE_URI = "postgresql://postgres:{password}@database:5432/archie_memory".format(password=pg_pwd)#is different in production
 
 class ProductionConfig(Config):
     DEBUG = False
