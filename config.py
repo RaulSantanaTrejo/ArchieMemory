@@ -10,7 +10,7 @@ class Config(object):
     pg_user = "postgres"
     pg_pwd = "postgres"
     pg_port = "5432"
-    SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URI']
+    SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL']
 
 class ProductionConfig(Config):
     DEBUG = False
