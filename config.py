@@ -10,7 +10,7 @@ class Config(object):
     pg_user = "postgres"
     pg_pwd = "postgres"
     pg_port = "5432"
-    SQLALCHEMY_DATABASE_URI = "postgresql://{username}:{password}@localhost:{port}/archiememory_dev".format(username=pg_user, password=pg_pwd, port=pg_port)#is different in production
+    SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URI']
 
 class ProductionConfig(Config):
     DEBUG = False
